@@ -1,11 +1,11 @@
 # <img src="assets/logo.png" alt="DeepPrep" style="height: 1.2em; vertical-align: middle; margin-right: 2px;"> DeepPrep: An LLM-Powered Agentic System for Autonomous Data Preparation
 
-[![arXiv](https://img.shields.io/badge/arXiv-25XX.XXXXX-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/25XX.XXXXX)
-[![homepage](https://img.shields.io/badge/%F0%9F%8C%90%20Homepage%20-DeepPrep%20Demo-blue.svg)](xxx/)
-[![model](https://img.shields.io/badge/%F0%9F%A4%97%20Huggingface%20-DeepPrep--Qwen3--14B-orange.svg)](xxx/DeepPrep)
+[![arXiv](https://img.shields.io/badge/arXiv-2602.07371-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2602.07371)
+[![PVLDB](https://img.shields.io/badge/PVLDB-2026-blueviolet)](https://www.vldb.org/pvldb/)
+[![GitHub](https://img.shields.io/badge/GitHub-ruc--datallab/DeepPrep-blue.svg?logo=github)](https://github.com/ruc-datalab/DeepPrep)
 [![data](https://img.shields.io/badge/%F0%9F%93%9A%20Datasets%20-Synth--Spider%20%7C%20Synth--Bird-darkgreen.svg)](https://huggingface.co/datasets/RUC-DataLab/DP-Synthesized)
 
-> **⚠️ Notice**: This paper is currently **under submission** to PVLDB. Author-identifying information in the codebase may be anonymized.
+> **📄 Paper**: This work is published at **PVLDB 2026** (Volume 19, Issue 1).
 
 **DeepPrep** is an LLM-powered agentic system designed for **Autonomous Data Preparation (ADP)**. It transforms heterogeneous and noisy raw tables into analysis-ready data based on high-level natural language specifications.
 
@@ -29,18 +29,38 @@ Unlike traditional linear interaction methods (e.g., ReAct) that struggle with e
 
 DeepPrep establishes state-of-the-art performance among open-source baselines and rivals proprietary models.
 
-**Evaluation on Synth-Spider (In-Domain) & Synth-Bird (Out-of-Domain)**
+### Datasets
+We evaluate on three datasets:
+| Dataset | Train | Test | Pipeline Length | # Op Types |
+| :--- | :---: | :---: | :---: | :---: |
+| **Synth-Spider** (In-domain) | 6,788 | 2,908 | 1-28 | 31 |
+| **Synth-Bird** (Out-of-domain) | 782 | 1,135 | 2-25 | 31 |
+| **Parrot** | 13,965 | 1,365 | 1-17 | 17 |
 
-| Method | Backbone | Synth-Spider (Acc) | Synth-Bird (Acc) | Cost ($/case) |
-| :--- | :--- | :---: | :---: | :---: |
-| **DeepPrep (Ours)** | **Qwen3-14B** | **67.18** | **54.09** | **Low** |
-| **DeepPrep (Ours)** | **Qwen3-8B** | **65.99** | **53.39** | **Very Low** |
-| ReAct | GPT-5 | 67.03 | - | High (15×) |
-| ReAct | Qwen3-14B | 40.39 | 16.04 | Low |
-| CodeGen | Qwen3-14B | 45.47 | 29.48 | Low |
-| AutoPrep | Qwen3-14B | 36.75 | 10.41 | Low |
+### Main Results
 
-> **Note**: DeepPrep (Qwen3-8B) outperforms the general-purpose data agent *DeepAnalyze* and specialized baselines like *MontePrep* by significant margins.
+**Synth-Spider & Synth-Bird**
+
+| Method | Backbone | Synth-Spider Acc | Synth-Spider Comp | Synth-Bird Acc | Synth-Bird Comp |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **DeepPrep (Ours)** | **Qwen3-14B** | **67.18** | **76.54%** | **54.09** | **62.67%** |
+| **DeepPrep (Ours)** | **Qwen3-8B** | **65.99** | **75.65%** | **53.39** | **61.76%** |
+| ReAct | GPT-5 | 67.03 | - | - | - |
+| ReAct | Qwen3-14B | 40.39 | - | 16.04 | - |
+| CodeGen | Qwen3-14B | 45.47 | - | 29.48 | - |
+| AutoPrep | Qwen3-14B | 36.75 | - | 10.41 | - |
+
+**Parrot**
+
+| Method | Backbone | Parrot Acc | Parrot Comp |
+| :--- | :--- | :---: | :---: |
+| **DeepPrep (Ours)** | **Qwen3-14B** | **97.46%** | **99.34%** |
+| **DeepPrep (Ours)** | **Qwen3-8B** | **95.39%** | **98.43%** |
+
+> **Key Findings**:
+> 1. DeepPrep achieves accuracy **comparable to GPT-5** at **15× lower inference cost**
+> 2. DeepPrep generalizes well to **out-of-domain** datasets (Synth-Bird)
+> 3. Model scaling improves performance: Qwen3-14B outperforms Qwen3-8B across all benchmarks
 
 ## 📁 Project Structure
 
@@ -124,18 +144,22 @@ We release a comprehensive suite of trained models ranging from 0.5B to 14B para
 
 ## 🖋 Citation
 
-If you find DeepPrep useful for your research, please cite our work (currently under review):
+If you find DeepPrep useful for your research, please cite our work:
 
 ```bibtex
-@article{DeepPrep2026,
-  title={DeepPrep: An LLM-Powered Agentic System for Autonomous Data Preparation},
+@article{fan2026deepprep,
+  title={DEEPPREP: An LLM-Powered Agentic System for Autonomous Data Preparation},
   author={Fan, Meihao and Fan, Ju and Zhang, Yuxin and Zhang, Shaolei and Du, Xiaoyong and Song, Jie and Li, Peng and Jiang, Fuxin and Zhang, Tieying and Chen, Jianjun},
-  journal={PVLDB (Under Submission)},
+  journal={PVLDB},
   volume={19},
   number={1},
   year={2026}
 }
 ```
+
+PVLDB Reference Format:
+> Meihao Fan, Ju Fan, Yuxin Zhang, Shaolei Zhang, Xiaoyong Du, Jie Song, Peng Li, Fuxin Jiang, Tieying Zhang, Jianjun Chen. 2026. DEEPPREP: An LLM-Powered Agentic System for Autonomous Data Preparation. PVLDB, 19(1): XXX-XXX.
+> DOI: https://doi.org/XXX-XXX-XX
 
 ## 🤝 Acknowledgements
 
