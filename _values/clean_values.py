@@ -1,0 +1,16 @@
+SPECIAL_CHAR_DICT = {
+    '%': 'percent',
+    '★': 'star',
+    '￥': 'yuan',
+    '#': 'number',
+    '<': 'less than',
+    '>': 'greater than',
+    '=': 'equal',
+    '²': ' square ',
+    '€': 'euro',
+    'm/s': 'meters per second',
+    'km/h': 'kilometers per hour',
+    '°C': 'degrees Celsius',
+    '°F': 'degrees Fahrenheit',
+    'km/s': 'kilometers per second',
+}

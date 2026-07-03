@@ -1,0 +1,12 @@
+# Runtime / generated
+*.log
+*.out
+*.pyc
+**/__pycache__/
+*.wandb
+
+# Local file cache
+_tmp/
+
+# Chat app runtime uploads (session data)
+chatapp/uploads/

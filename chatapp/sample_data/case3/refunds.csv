@@ -1,0 +1,4 @@
+refund_id,payment_id,refund_date,refund_amount,currency
+R1,P2,2024-03-10,5,EUR
+R2,P5,2024-04-01,10,CNY
+R3,P7,2024-03-12,10,USD

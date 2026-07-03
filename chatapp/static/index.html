@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Console</title>
+  <link rel="stylesheet" href="/static/styles.css?v=stage1" />
+</head>
+<body>
+  <main class="stage">
+    <!-- Left: inputs summary (after setup), with floating controls on top-right -->
+    <section class="left-panel">
+      <div class="setup-summary hidden" id="setupSummary">
+        <div class="summary-block">
+          <div class="summary-title">Source tables</div>
+          <div id="tablesMini" class="tables-mini"></div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-title">Target schema</div>
+          <div id="targetDescMini" class="target-mini"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: turns on top, tree below -->
+    <section class="right-panel">
+      <section class="turns turns-top">
+        <div class="turns-head">
+          <div class="turns-head-left">
+            <div class="turns-title">Exploration</div>
+            <div id="turnHint" class="turn-hint">waiting for input…</div>
+          </div>
+
+          <!-- Controls moved into the Exploration header bar (ChatGPT-like) -->
+          <div id="controlDock" class="control-dock hidden" aria-label="Run controls">
+            <select id="llmSelect" class="ctl-input" aria-label="Select LLM"></select>
+            <input id="maxExploreTurn" class="ctl-input" type="number" min="0" step="1" placeholder="max_turn" />
+            <button id="runBtn" class="btn primary" disabled>Run</button>
+            <div id="status" class="status" data-status="idle" aria-live="polite">idle</div>
+          </div>
+        </div>
+        <div id="turnList" class="turn-list"></div>
+      </section>
+
+      <section class="tree-wrap">
+        <div class="tree-head">
+          <div class="tree-title">Operator Tree</div>
+          <div id="treeActivity" class="tree-activity hidden" aria-live="polite"></div>
+        </div>
+        <div class="tree-body">
+          <div id="tree" class="tree"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="uiError" class="alert hidden" role="alert"></div>
+
+  <!-- Setup modal shown on entry -->
+  <div id="setupModal" class="modal" aria-hidden="false">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card setup-card" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+      <div class="modal-header">
+        <div id="setupTitle" class="modal-title">Start a new run</div>
+        <div class="modal-sub">Upload source tables and describe the target table schema.</div>
+      </div>
+      <div class="modal-body">
+        <div class="grid2">
+          <div class="panel soft">
+            <div class="panel-title">Source tables</div>
+            <input id="fileInput" type="file" multiple />
+            <button id="uploadBtn" class="btn">Upload</button>
+            <div id="uploadHint" class="hint">Upload CSV/PKL/Parquet files.</div>
+            <div id="tables" class="tables-preview"></div>
+          </div>
+
+          <div class="panel soft">
+            <div class="panel-title">Target table schema description</div>
+            <label class="label">High level task description</label>
+            <textarea id="highLevel" rows="4" placeholder="Describe what the target table should represent..."></textarea>
+
+            <label class="label">Schema JSON</label>
+            <textarea id="schemaJson" rows="8" placeholder='Example:\n{\n  "colA": {"description": "...", "requirements": ["distinct"]}\n}'></textarea>
+
+            <button id="setSchemaBtn" class="btn">Confirm target description</button>
+            <div id="targetDesc" class="muted"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="startBtn" class="btn primary" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result modal (shown when solution result is ready) -->
+  <div id="resultModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div id="modalTitle" class="modal-title">Target Table</div>
+        <button id="modalCloseBtn" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <a id="modalDownloadBtn" class="primary-link" href="#" download>Download CSV</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Turn output modal (shown when clicking a turn chip) -->
+  <div id="turnModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="turnModalBackdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="turnModalTitle">
+      <div class="modal-header">
+        <div id="turnModalTitle" class="modal-title">Turn</div>
+        <button id="turnModalCloseBtn" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div id="turnModalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Operator modal (shown when clicking an operator node) -->
+  <div id="operatorModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" id="operatorModalBackdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="operatorModalTitle">
+      <div class="modal-header">
+        <div id="operatorModalTitle" class="modal-title">Operator</div>
+        <button id="operatorModalCloseBtn" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div id="operatorModalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+- You should generate a plausible operator chain to complete the task.
+- The operator chain should start from the current state.
+- The operator chain must end with a `Terminate` operator.
+- You can use two types of TAGS to complete the task.
+    - <think> your_think_here </think>: This tag is used for analyzing what action should be taken next based on the current status and historical infomation.
+    - <operator> your_operator_chain_here </operator>
+        - You should generate a plausible operator chain to complete the task.
+        - The operator chain should start from the current state.
+        - The operator chain must end with a `Terminate` operator.

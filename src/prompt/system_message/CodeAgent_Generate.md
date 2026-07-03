@@ -1,0 +1,4 @@
+- The input tables are truncated and will be provided in the object `input_tables`.
+- Carefully check the generated table with the target table schema description.
+- Wrapped your generated code with ```your_code_here``` with NO OTHER TEXT.
+- Your generated target table will be maintained in a pd.Dataframe object named `target_df`.

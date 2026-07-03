@@ -1,0 +1,6 @@
+sub_id,user_id,plan,start_date,end_date
+S1,U1,basic,2024-01-15,
+S2,U2,pro,2024-02-01,2024-03-20
+S3,U3,pro,2024-03-05,
+S4,U4,basic,2024-03-25,
+S5,U2,basic,2024-03-10,2024-03-31

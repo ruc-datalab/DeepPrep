@@ -1,0 +1,9 @@
+agent_max_err_cnt: 5
+execute_mode: rule
+framework: multiturn_ops
+key_file: keys_CHN.txt
+llm_name: claude-sonnet-4-20250514
+openai_base_url: xxx
+max_explore_op: 50
+max_explore_turn: 5
+name: multiturn_ops_gpt5

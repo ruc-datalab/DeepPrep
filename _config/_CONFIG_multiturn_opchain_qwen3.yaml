@@ -1,0 +1,9 @@
+execute_mode: rule
+framework: multiturn_ops
+key_file: keys_local.txt
+llm_name: QWEN3_8B
+openai_base_url: http://localhost:8000/v1/
+max_explore_op: 50
+max_explore_turn: 5
+agent_max_err_cnt: 5
+name: multiturn_ops_local

@@ -1,0 +1,39 @@
+## Demonstration 1
+
+Input Table:
+Name: "table_1"
+ID | "35" | "35" | "35" | "35" | "35" | "35" | "35" | "35" | "35" | "35" | "35" | "56" | "56" | "56" | "56" | "56" | "56" | "56" | "56" | ...
+---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|--- | ...
+"course_id" | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 366 | 400 | 426 | 468 | 493 | 642 | 702 | 735 | 760 | 893 | 962 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | 105 | 237 | 242 | 345 | 400 | 400 | 443 | 561 | 581 | 612 | 791 | 795 | 852 | 960 | 972 | 974 | ...
+"sec_id" | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | ...
+"semester" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Fall" | "Spring" | "Spring" | "Spring" | "Fall" | "Spring" | "Fall" | ...
+"grade_2001" | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | nan | "A-" | nan | nan | nan | nan | nan | nan | nan | nan | nan | 
+......
+[Truncated due to length]
+
+Requirement: Please clean the table_1, including removing the quotes, standardize string to numerical, drop out null age_values, and deduplicate the rows where the plane_name is the same.
+
+<physical_operator> CodeGeneration(table_names=['table_1'], target_table="restructured_table", func="""
+import pandas as pd
+def process_tables(table_1: pd.DataFrame):
+    # Set index to 'ID' column
+    df = table_1.set_index('ID')
+    # Transpose the dataframe
+    df_transposed = df.T
+    # Reset index to turn original column headers into a column
+    df_transposed = df_transposed.reset_index()
+    # Rename the new column to 'student_id'
+    df_transposed = df_transposed.rename(columns={'index': 'student_id'})
+    return df_transposed
+""") </physical_operator>
+
+<observation> 
+Table Name: "restructured_table"
+Table Data:
+student_id | course_id | sec_id | semester | grade_2001 | grade_2002 | grade_2003 | grade_2004 | grade_2005 | grade_2006 | ...
+---|---|---|---|---|---|---|---|---|--- | ...
+""35"" | 366 | 1 | "Fall" | nan | nan | nan | nan | "A " | nan | ...
+""35"" | 400 | 2 | "Fall" | nan | nan | "C-" | nan | nan | nan | ...
+""35"" | 426 | 1 | "Spring" | nan | nan | nan | nan | nan | "C-" | ...
+......
+</observation>
