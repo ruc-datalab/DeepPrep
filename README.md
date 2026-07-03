@@ -37,30 +37,18 @@ We evaluate on three datasets:
 | **Synth-Bird** (Out-of-domain) | 782 | 1,135 | 2-25 | 31 |
 | **Parrot** | 13,965 | 1,365 | 1-17 | 17 |
 
-### Main Results
+**Evaluation on Synth-Spider (In-Domain) & Synth-Bird (Out-of-Domain)**
 
-**Synth-Spider & Synth-Bird**
-
-| Method | Backbone | Synth-Spider Acc | Synth-Spider Comp | Synth-Bird Acc | Synth-Bird Comp |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **DeepPrep (Ours)** | **Qwen3-14B** | **67.18** | **76.54%** | **54.09** | **62.67%** |
-| **DeepPrep (Ours)** | **Qwen3-8B** | **65.99** | **75.65%** | **53.39** | **61.76%** |
-| ReAct | GPT-5 | 67.03 | - | - | - |
-| ReAct | Qwen3-14B | 40.39 | - | 16.04 | - |
-| CodeGen | Qwen3-14B | 45.47 | - | 29.48 | - |
-| AutoPrep | Qwen3-14B | 36.75 | - | 10.41 | - |
-
-**Parrot**
-
-| Method | Backbone | Parrot Acc | Parrot Comp |
+| Method | Backbone | Synth-Spider (Acc) | Synth-Bird (Acc) |
 | :--- | :--- | :---: | :---: |
-| **DeepPrep (Ours)** | **Qwen3-14B** | **97.46%** | **99.34%** |
-| **DeepPrep (Ours)** | **Qwen3-8B** | **95.39%** | **98.43%** |
+| **DeepPrep (Ours)** | **Qwen3-14B** | **67.18** | **54.09** |
+| **DeepPrep (Ours)** | **Qwen3-8B** | **65.99** | **53.39** |
+| ReAct | GPT-5 | 67.03 | - |
+| ReAct | Qwen3-14B | 40.39 | 16.04 |
+| CodeGen | Qwen3-14B | 45.47 | 29.48 |
+| AutoPrep | Qwen3-14B | 36.75 | 10.41 |
 
-> **Key Findings**:
-> 1. DeepPrep achieves accuracy **comparable to GPT-5** at **15× lower inference cost**
-> 2. DeepPrep generalizes well to **out-of-domain** datasets (Synth-Bird)
-> 3. Model scaling improves performance: Qwen3-14B outperforms Qwen3-8B across all benchmarks
+> **Note**: DeepPrep achieves accuracy **comparable to GPT-5** at **15× lower inference cost**
 
 ## 📁 Project Structure
 
