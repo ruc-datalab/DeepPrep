@@ -8,8 +8,8 @@ from app.client import ApiClient
 import httpx
 import copy
 
-class MultiTurnAgent(BaseAgent):
-    def __init__(self, name: str='MultiTurn Agent', cfg=None, log_file='_MAIN'):
+class TreeBasedAgenticReasoningAgent(BaseAgent):
+    def __init__(self, name: str='Tree-Based Agentic Reasoning Agent', cfg=None, log_file='_MAIN'):
         super().__init__(name, cfg, log_file)
         self.llm = GPT(self.cfg)
         self.mode = self.cfg.get('execute_mode')
@@ -33,9 +33,9 @@ class MultiTurnAgent(BaseAgent):
         return True
 
 
-    def _multiturn_step(self, trial: Trial, cur_turn: int, messages: list):
+    def _reasoning_step(self, trial: Trial, cur_turn: int, messages: list):
         if cur_turn == 1:
-            sys_prompt, user_prompt = PromptGenerator.multiturn_agent_generate(self.cfg, trial, last_error=self.last_log, cur_turn=cur_turn, his_op_and_output='')
+            sys_prompt, user_prompt = PromptGenerator.tree_based_agentic_reasoning_generate(self.cfg, trial, last_error=self.last_log, cur_turn=cur_turn, his_op_and_output='')
             messages = []
             messages.append({"role": "system", "content": sys_prompt})
             messages.append({"role": "user", "content": user_prompt})
@@ -46,7 +46,7 @@ class MultiTurnAgent(BaseAgent):
         out, think_content = self.llm.query(messages, get_thinking=True)
         self.logger.log_with_think_content(think_content, out)
 
-        think, solution, operator_chain = self._parse_multiturn_output(out)
+        think, solution, operator_chain = self._parse_reasoning_output(out)
         if think is None: think = think_content
 
         if solution and operator_chain:
@@ -92,7 +92,7 @@ class MultiTurnAgent(BaseAgent):
 
         return think, operator_chain, None, obs_str, messages
     
-    def multiturn_step(self, trial: Trial):
+    def reasoning_step(self, trial: Trial):
         messages = []
 
         for i in range(self.cfg.get('max_explore_turn')+1):
@@ -102,7 +102,7 @@ class MultiTurnAgent(BaseAgent):
             while True:
                 try:
                     # cur turn: 1, 2, 3, 4, 5, 6 (final turn to output solution)
-                    think, operator_chain, solution, obs, messages = self._multiturn_step(trial, cur_turn, messages)
+                    think, operator_chain, solution, obs, messages = self._reasoning_step(trial, cur_turn, messages)
                     trial.record('think', think)
                     trial.record('operator', operator_chain)
                     trial.record('solution', solution)
@@ -130,9 +130,9 @@ class MultiTurnAgent(BaseAgent):
 
         return solution
 
-    def _parse_multiturn_output(self, output: str) -> str:
+    def _parse_reasoning_output(self, output: str) -> str:
         """
-        Parse the output of the ds agent.
+        Parse the output of the tree-based agentic reasoning agent.
         """
         # if '<observation>' in output and '</observation>' in output:
         #     raise Exception('The <observation> tag **should not** be used in the output! An external executor will automatically execute the operator chain and return the execution result wrapped by the <observation> tag.')

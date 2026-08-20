@@ -40,8 +40,8 @@ def load_tasks(args):
 def process_one_task(task: Task):
     try:
         framework = cfg.get('framework')
-        if framework == "multiturn_ops":
-            mas = MultiTurnOps(cfg, log_file=task.id)
+        if framework == "tree_based_agentic_reasoning":
+            mas = TreeBasedAgenticReasoning(cfg, log_file=task.id)
         else:
             raise ValueError(f"Unknown framework: {framework}")
         trial = mas.run(task)
@@ -69,7 +69,7 @@ def print_final_result():
 
 parser = argparse.ArgumentParser(description="select bq or sf")
 
-parser.add_argument("--cfg", type=str, default="multiturn_opchain_doubao", help="Config name")
+parser.add_argument("--cfg", type=str, default="tree_based_agentic_reasoning_doubao", help="Config name")
 parser.add_argument("--benchmark", type=str, default="", help="benchmark name")
 parser.add_argument("--max_turn", type=int, default=-1, help="maximum number of turns")
 parser.add_argument("--v_name", type=str, default="", help="version of the agent")
@@ -100,7 +100,7 @@ if llm_name == 'ep':
     llm_name = args.cfg.split('_')[-1]
 cfg.set("version", f"{today}-{cfg.get('benchmark')}-{args.split}-{'total' if args.limit == -1 else args.limit}-{cfg.get('framework')}-exe_{cfg.get('execute_mode')}-{llm_name}", False)
 
-if cfg.get('framework') == 'multiturn_ops' and args.max_turn > 0:
+if cfg.get('framework') == 'tree_based_agentic_reasoning' and args.max_turn > 0:
     if args.max_turn > 6:
         cfg.set("max_input_limit", 60000)
     cfg.set("max_explore_turn", args.max_turn)
@@ -118,7 +118,6 @@ for t in tasks:
     multi_processer.submit_task(process_one_task, *t)
 results = multi_processer.wait_for_completion()
 print_final_result()
-
 
 
 

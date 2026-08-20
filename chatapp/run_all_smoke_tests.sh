@@ -6,6 +6,6 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-export CHATAPP_CONFIG_NAME="${CHATAPP_CONFIG_NAME:-multiturn_opchain_gpt5}"
+export CHATAPP_CONFIG_NAME="${CHATAPP_CONFIG_NAME:-tree_based_agentic_reasoning_gpt5}"
 
 python -m chatapp.smoke_test

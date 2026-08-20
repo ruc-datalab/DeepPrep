@@ -163,7 +163,7 @@ def make_trial_from_uploaded_tables(
                 DataPool.tbl_schema_description[benchmark][task.split] = {}
             DataPool.tbl_schema_description[benchmark][task.split][task.id] = schema_payload
         except Exception:
-            # Best-effort: if injection fails, MultiTurnAgent will fall back to 'None'.
+            # Best-effort: if injection fails, the reasoning agent will fall back to 'None'.
             pass
     trial = Trial(exp_id=trial_id, task=task)
     trial.tables = {k: v.copy() for k, v in tables.items()}

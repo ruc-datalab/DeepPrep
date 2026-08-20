@@ -201,7 +201,7 @@ def test_ui_endpoints(base_url: str) -> None:
 
 
 def main() -> int:
-    config_name = os.environ.get("CHATAPP_CONFIG_NAME", "multiturn_opchain_gpt5")
+    config_name = os.environ.get("CHATAPP_CONFIG_NAME", "tree_based_agentic_reasoning_gpt5")
     port = int(os.environ.get("CHATAPP_PORT", "0")) or _pick_free_port()
     base_url = f"http://127.0.0.1:{port}"
 

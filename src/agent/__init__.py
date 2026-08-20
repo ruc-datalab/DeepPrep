@@ -5,7 +5,7 @@ from .error_analyzer import ErrorAnalyzer
 from .mcts_agent import MCTSAgent
 from .code_generation import CodeGen
 from .react_agent import ReactAgent
-from .multiturn_agent import MultiTurnAgent
+from .tree_based_agentic_reasoning import TreeBasedAgenticReasoningAgent
 from .self_reflection_agent import SelfReflectionAgent
 from .llm_as_judge import LLMAsJudge
 from .think_agent import ThinkAgent

@@ -79,4 +79,4 @@ In the `__init__` method of `RuleExecutor`, add your operator class and its corr
 
 # To Evaluate on Buildings Dataset
 
-If you want to evaluate DeepPrep on Buildings dataset, please use the operator defined in `AUTOPIPELINE_OP` and use the prompt `src/prompt/system_message/MultiturnAgent_MultiturnOps_Buildings.md` and `src/prompt/demo/MultiturnAgent_AutoPipeline.md`.
+If you want to evaluate DeepPrep on Buildings dataset, please use the operator defined in `AUTOPIPELINE_OP` and use the prompt `src/prompt/system_message/TreeBasedAgenticReasoning_TreeBasedAgenticReasoning_Buildings.md` and `src/prompt/demo/TreeBasedAgenticReasoning_AutoPipeline.md`.

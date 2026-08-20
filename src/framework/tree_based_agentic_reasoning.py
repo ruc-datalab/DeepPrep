@@ -12,11 +12,11 @@ class TrainMode:
     EVALUATE = 'evaluate'
     TRAIN = 'rl_training'
 
-class MultiTurnOps:
+class TreeBasedAgenticReasoning:
     def __init__(self, cfg=None, log_file='_MAIN'):
         self.cfg = Config.load_base_config() if cfg is None else cfg
-        self.multiturn_agent = MultiTurnAgent(cfg=self.cfg, log_file=log_file)
-        self.logger = Logger(name = 'MultiTurnsGenChain', cfg=self.cfg, log_file=log_file)
+        self.agent = TreeBasedAgenticReasoningAgent(cfg=self.cfg, log_file=log_file)
+        self.logger = Logger(name='TreeBasedAgenticReasoning', cfg=self.cfg, log_file=log_file)
         self.mode = self.cfg.get('execute_mode')
         self.client = ApiClient()
 
@@ -45,14 +45,14 @@ class MultiTurnOps:
         benchmark = get_benchmark_from_task_id(task.id)
         if task.split in DataPool.ground_truth[benchmark] and task.id in DataPool.ground_truth[benchmark][task.split]:
             ground_truth_str = "\n".join([str(op) for op in DataPool.ground_truth[benchmark][task.split][task.id]])
-            self.multiturn_agent.logger.log(f'Current processing task: {task.id}. With ground truth to be:\n\n{ground_truth_str}')
+            self.agent.logger.log(f'Current processing task: {task.id}. With ground truth to be:\n\n{ground_truth_str}')
         else:
-            self.multiturn_agent.logger.log(f'Current processing task: {task.id}. No ground truth.')
+            self.agent.logger.log(f'Current processing task: {task.id}. No ground truth.')
         trial = self._initialize_trial(task)
         self.trial = trial
 
         try:
-            solution = self.multiturn_agent.multiturn_step(trial)
+            solution = self.agent.reasoning_step(trial)
         except Exception as e:
             self.logger.log(f'Error: {e}')
             trial.error_message = str(e)

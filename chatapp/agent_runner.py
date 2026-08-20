@@ -5,7 +5,7 @@ import threading
 from typing import List, Optional
 
 from app.client import ApiClient
-from src.agent.multiturn_agent import MultiTurnAgent
+from src.agent.tree_based_agentic_reasoning import TreeBasedAgenticReasoningAgent
 from src.tools.helper import Config
 from src.physicalop import auto_parse_op
 from src.module.executor import Executor
@@ -18,8 +18,8 @@ def _split_chain(chain: str) -> List[str]:
     return [x.strip() for x in chain.split("-->") if x.strip()]
 
 
-class InteractiveMultiTurnRunner:
-    """Runs MultiTurnAgent turn-by-turn and publishes events for UI."""
+class InteractiveTreeBasedAgenticReasoningRunner:
+    """Runs tree-based agentic reasoning turn-by-turn and publishes events for UI."""
 
     def __init__(
         self,
@@ -35,8 +35,8 @@ class InteractiveMultiTurnRunner:
         self.trial_id = trial_id
         self.tree = OperatorTree()
 
-        # MultiTurnAgent internally creates ApiClient(), which will use DS_AGENT_API_BASE_URL
-        self.agent = MultiTurnAgent(cfg=cfg, log_file=f"CHATAPP_{trial_id}")
+        # The reasoning agent creates ApiClient(), which will use DS_AGENT_API_BASE_URL.
+        self.agent = TreeBasedAgenticReasoningAgent(cfg=cfg, log_file=f"CHATAPP_{trial_id}")
 
     def _publish_tree(self):
         self.hub.publish(self.trial_id, {"type": "tree", "tree": self.tree.to_dict()})
@@ -50,7 +50,7 @@ class InteractiveMultiTurnRunner:
     def _enrich_chain_via_simulate(self, trial_id: str, ops: List[str]) -> List[dict]:
         """Re-run /simulate to collect per-op outputs (table name + preview).
 
-        MultiTurnAgent internally calls /simulate but only returns text observations.
+        The reasoning agent calls /simulate but only returns text observations.
         Here we call it again to get structured metadata used by the operator tree UI.
         """
         try:
@@ -128,7 +128,7 @@ class InteractiveMultiTurnRunner:
 
                     # Let UI know we are actively waiting on the LLM for this turn.
                     self._publish_status(f"thinking (turn {cur_turn})")
-                    think, operator_chain, solution, obs, messages = self.agent._multiturn_step(trial, cur_turn, messages)
+                    think, operator_chain, solution, obs, messages = self.agent._reasoning_step(trial, cur_turn, messages)
                     trial.record("think", think)
                     trial.record("operator", operator_chain)
                     trial.record("solution", solution)
@@ -138,7 +138,7 @@ class InteractiveMultiTurnRunner:
                     self._publish_status("running")
                     break
                 except Exception as e:
-                    # MultiTurnAgent internally retries on some HTTP errors; we keep it simple here.
+                    # The reasoning agent retries on some HTTP errors; we keep it simple here.
                     self.agent._raise_error(str(e))
                     continue
 
@@ -199,7 +199,7 @@ class InteractiveMultiTurnRunner:
 
 
 def start_runner_in_background(*, cfg: dict, store: InMemoryStore, hub: TrialEventHub, trial_id: str) -> threading.Thread:
-    runner = InteractiveMultiTurnRunner(cfg=cfg, store=store, hub=hub, trial_id=trial_id)
+    runner = InteractiveTreeBasedAgenticReasoningRunner(cfg=cfg, store=store, hub=hub, trial_id=trial_id)
     t = threading.Thread(target=runner.run, daemon=True)
     t.start()
     return t

@@ -129,7 +129,7 @@ class PromptGenerator:
             ops=op_str.strip(),
             demo=PromptGenerator.DEMO['DSAgent']['MultiturnContinuousOps'].strip(),
 
-            system_msg=PromptGenerator.SYSMSG['DSAgent']['MultiturnOps'].strip().format(
+            system_msg=PromptGenerator.SYSMSG['DSAgent']['MultiturnContinuousOps'].strip().format(
                 max_explore_turn=cfg.get('max_explore_turn')),
                 
             inp_tbls=inp_tbls.strip(),
@@ -278,7 +278,7 @@ class PromptGenerator:
         return prompt
 
     @staticmethod
-    def multiturn_agent_generate(cfg: Config, trial: Trial, last_error:str=None, cur_turn:int=0, his_op_and_output:str='') -> str: 
+    def tree_based_agentic_reasoning_generate(cfg: Config, trial: Trial, last_error:str=None, cur_turn:int=0, his_op_and_output:str='') -> str:
         cur_ops: List[BaseOp] = TOTAL_OPS
         if cfg.get('diverse_input'):
             random.shuffle(cur_ops)
@@ -296,18 +296,18 @@ class PromptGenerator:
         if last_error: last_error_if_exist = f'\n** Last Error **: {last_error}. Try to avoid the error in the current Output.'
         else: last_error_if_exist = ''
 
-        prompt_sys = PromptGenerator.PROMPTS['MultiturnAgent']['MultiturnOpsSys']
-        prompt_user = PromptGenerator.PROMPTS['MultiturnAgent']['MultiturnOpsUser']
+        prompt_sys = PromptGenerator.PROMPTS['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoningSys']
+        prompt_user = PromptGenerator.PROMPTS['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoningUser']
 
-        sys_message = PromptGenerator.SYSMSG['MultiturnAgent']['MultiturnOps'].strip().format(
+        sys_message = PromptGenerator.SYSMSG['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoning'].strip().format(
                 max_explore_turn=cfg.get('max_explore_turn'))
         if cfg.get('max_explore_turn') > 10:
             sys_message = sys_message.replace(f'You will have {cfg.get("max_explore_turn")} to explore. ', 'You have multiple turns to explore the operators to complete the task.')
 
         prompt_sys = prompt_sys.format(
-            role=PromptGenerator.ROLE['MultiturnAgent']['MultiturnOps'].strip(),
+            role=PromptGenerator.ROLE['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoning'].strip(),
             ops=op_str.strip(),
-            demo=PromptGenerator.DEMO['MultiturnAgent']['MultiturnOps'].strip(),
+            demo=PromptGenerator.DEMO['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoning'].strip(),
             system_msg=sys_message,
         )
         prompt_user = prompt_user.format(
@@ -323,7 +323,7 @@ class PromptGenerator:
         return prompt_sys, prompt_user
 
     @staticmethod
-    def multiturn_agent_generate_zeroshot(cfg: Config, trial: Trial, last_error:str=None, cur_turn:int=0, his_op_and_output:str='') -> str: 
+    def tree_based_agentic_reasoning_generate_zeroshot(cfg: Config, trial: Trial, last_error:str=None, cur_turn:int=0, his_op_and_output:str='') -> str:
         inp_tbls = trial.serialize_input_tables()
         tgt_tbl_schema_description = Trial.generate_schema_description(task=trial.task)
 
@@ -333,12 +333,12 @@ class PromptGenerator:
         if last_error: last_error_if_exist = f'** Last Error **: {last_error}. Try to avoid the error in the current Output.\n\n'
         else: last_error_if_exist = ''
 
-        prompt_sys = PromptGenerator.PROMPTS['DSAgent']['MultiturnOpsZeroshotSys']
-        prompt_user = PromptGenerator.PROMPTS['DSAgent']['MultiturnOpsZeroshotUser']
+        prompt_sys = PromptGenerator.PROMPTS['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoningZeroshotSys']
+        prompt_user = PromptGenerator.PROMPTS['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoningZeroshotUser']
 
         prompt_sys = prompt_sys.format(
-            role=PromptGenerator.ROLE['DSAgent']['MultiturnOps'].strip(),
-            system_msg=PromptGenerator.SYSMSG['DSAgent']['MultiturnOps'].strip().format(
+            role=PromptGenerator.ROLE['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoning'].strip(),
+            system_msg=PromptGenerator.SYSMSG['TreeBasedAgenticReasoning']['TreeBasedAgenticReasoning'].strip().format(
                 max_explore_turn=cfg.get('max_explore_turn')),
         )
         prompt_user = prompt_user.format(

@@ -87,7 +87,7 @@ Download the synthesized datasets (`Synth-Spider`, `Synth-Bird`) from our [Huggi
    ```yaml
    agent_max_err_cnt: 5
    execute_mode: rule # or 'code' for python execution
-   framework: tree_search # Enables Tree-based Agentic Reasoning
+   framework: tree_based_agentic_reasoning # Enables Tree-based Agentic Reasoning
    llm_name: Qwen/Qwen2.5-14B-Instruct # or your local model path
    max_explore_turn: 5
    ```

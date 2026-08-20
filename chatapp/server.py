@@ -32,7 +32,7 @@ UPLOAD_BASE_DIR = os.path.join(APP_DIR, "uploads")
 
 os.makedirs(UPLOAD_BASE_DIR, exist_ok=True)
 
-# Ensure MultiTurnAgent's ApiClient talks to this server by default
+# Ensure the tree-based agentic reasoning agent's ApiClient talks to this server by default.
 os.environ.setdefault("DS_AGENT_API_BASE_URL", "http://127.0.0.1:8000")
 
 app = FastAPI(title="AutoPrep2 ChatApp")

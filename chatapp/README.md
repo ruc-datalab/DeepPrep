@@ -6,7 +6,7 @@ It supports:
 
 1) Upload multiple input tables (CSV / PKL / Parquet)
 2) Provide a **target table schema description** (guided input: high-level task + column schema)
-3) Run a **multi-turn agent** and visualize generated operator chains as an **operator tree**
+3) Run **tree-based agentic reasoning** and visualize generated operator chains as an **operator tree**
 4) Extract the final solution chain, execute it to produce the target table, show a preview, and allow download
 
 ## Architecture (high-level)
@@ -15,13 +15,13 @@ It supports:
 - Backend server is [chatapp/server.py](server.py).
 - Agent runner is [chatapp/agent_runner.py](agent_runner.py):
     - Starts a background thread
-    - Calls `MultiTurnAgent` turn-by-turn
+    - Calls `TreeBasedAgenticReasoningAgent` turn-by-turn
     - Maintains an **operator tree** (trie-like) via [chatapp/operator_tree.py](operator_tree.py)
     - Pushes events to the UI over WebSocket `/ws/{trial_id}`
 - In-memory state is managed by [chatapp/state.py](state.py).
 
 Important: the ChatApp server also exposes a **minimal set of ApiClient-compatible endpoints** (`/trials`, `/simulate`, `/evaluate`, etc.).
-This allows `MultiTurnAgent` (which internally uses `ApiClient`) to talk to **this same process**.
+This allows `TreeBasedAgenticReasoningAgent` (which internally uses `ApiClient`) to talk to **this same process**.
 
 ## Feature details
 
@@ -65,10 +65,10 @@ You may also provide a simpler mapping:
 
 The server will normalize it into a `DataPool`-compatible schema payload.
 
-### 3) Multi-turn agent + operator tree
+### 3) Tree-based agentic reasoning + operator tree
 
 - Endpoint: `POST /ui/run`
-    - Starts a background thread to run `MultiTurnAgent`
+    - Starts a background thread to run `TreeBasedAgenticReasoningAgent`
     - Maintains an operator tree and pushes incremental updates
 
 Operator tree construction rule (string-level matching):
@@ -105,10 +105,10 @@ ChatApp uses the global config mechanism in [_config/current_config.yaml](../_co
 Example (use GPT-5 config):
 
 ```bash
-python -c "from src.tools.helper import Config; Config.set_current_config('multiturn_opchain_gpt5'); cfg=Config.load_current_config(); print(cfg.get('framework'), cfg.get('execute_mode'), cfg.get('llm_name'))"
+python -c "from src.tools.helper import Config; Config.set_current_config('tree_based_agentic_reasoning_gpt5'); cfg=Config.load_current_config(); print(cfg.get('framework'), cfg.get('execute_mode'), cfg.get('llm_name'))"
 ```
 
-The config YAML file is [_config/_CONFIG_multiturn_opchain_gpt5.yaml](../_config/_CONFIG_multiturn_opchain_gpt5.yaml).
+The config YAML file is [_config/_CONFIG_tree_based_agentic_reasoning_gpt5.yaml](../_config/_CONFIG_tree_based_agentic_reasoning_gpt5.yaml).
 
 ### 2) Start the server
 
@@ -136,7 +136,7 @@ This project switches LLMs **via config YAML** under [_config](../_config/).
 Option 1: switch via Python (writes `_config/current_config.yaml`):
 
 ```bash
-python -c "from src.tools.helper import Config; Config.set_current_config('multiturn_opchain_claude'); print(Config.load_current_config().get('llm_name'))"
+python -c "from src.tools.helper import Config; Config.set_current_config('tree_based_agentic_reasoning_claude'); print(Config.load_current_config().get('llm_name'))"
 ```
 
 Option 2: switch via UI API:
@@ -149,7 +149,7 @@ Example:
 ```bash
 curl -s -X POST http://127.0.0.1:8000/ui/config \
     -H 'Content-Type: application/json' \
-    -d '{"configName":"multiturn_opchain_gpt5"}'
+    -d '{"configName":"tree_based_agentic_reasoning_gpt5"}'
 ```
 
 ### B) Add a new LLM (OpenAI-compatible)
@@ -162,20 +162,20 @@ Steps:
 
      Example file name:
 
-     - `_config/_CONFIG_multiturn_opchain_myllm.yaml`
+     - `_config/_CONFIG_tree_based_agentic_reasoning_myllm.yaml`
 
      Minimal fields example:
 
      ```yaml
      agent_max_err_cnt: 5
      execute_mode: rule
-     framework: multiturn_ops
+     framework: tree_based_agentic_reasoning
      key_file: keys_myllm.txt
      llm_name: my-model-name
      openai_base_url: http://127.0.0.1:8001/v1
      max_explore_op: 50
      max_explore_turn: 5
-     name: multiturn_ops_myllm
+     name: tree_based_agentic_reasoning_myllm
      ```
 
      Notes:
@@ -194,7 +194,7 @@ Steps:
      Add a new entry into `LLM_CONFIGS`, e.g.:
 
      ```python
-     LLM_CONFIGS["My-LLM"] = "multiturn_opchain_myllm"
+     LLM_CONFIGS["My-LLM"] = "tree_based_agentic_reasoning_myllm"
      ```
 
      Why: `/ui/config` only accepts config names listed in `LLM_CONFIGS`.
@@ -227,7 +227,7 @@ This repo’s ChatApp is intentionally designed to avoid modifying `src/`. In th
 
 ### ApiClient-compatible endpoints (minimal subset)
 
-These exist so `MultiTurnAgent` can run without a separate Action Sandbox:
+These exist so `TreeBasedAgenticReasoningAgent` can run without a separate Action Sandbox:
 
 - `POST /trials`
 - `POST /trials/create_with_task_id`
@@ -255,7 +255,7 @@ These exist so `MultiTurnAgent` can run without a separate Action Sandbox:
 ### 1) Config load sanity
 
 ```bash
-python -c "from src.tools.helper import Config; Config.set_current_config('multiturn_opchain_gpt5'); cfg=Config.load_current_config(); print(cfg.get('framework'), cfg.get('execute_mode'), cfg.get('llm_name'))"
+python -c "from src.tools.helper import Config; Config.set_current_config('tree_based_agentic_reasoning_gpt5'); cfg=Config.load_current_config(); print(cfg.get('framework'), cfg.get('execute_mode'), cfg.get('llm_name'))"
 ```
 
 ### 2) Start server (manual)
@@ -287,7 +287,7 @@ bash chatapp/run_all_smoke_tests.sh
 Or specify config:
 
 ```bash
-CHATAPP_CONFIG_NAME=multiturn_opchain_gpt5 bash chatapp/run_all_smoke_tests.sh
+CHATAPP_CONFIG_NAME=tree_based_agentic_reasoning_gpt5 bash chatapp/run_all_smoke_tests.sh
 ```
 
 Note: `/ui/run` starts the agent in a background thread. If no valid LLM key/endpoint is configured, the agent may fail in the background, but the smoke tests will still validate that the server endpoints are reachable and behave correctly.

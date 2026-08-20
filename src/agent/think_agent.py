@@ -13,10 +13,18 @@ class ThinkAgent(BaseAgent):
         super().__init__(name, cfg, log_file)
         self.name = name
         self.llm = GPTPOOL(self.cfg)
-        # load src/prompt/others/gen_think_for_mulops.md as a prompt
-        self.MULTI_OPS_PROMPT = load_text_file(os.path.join(os.path.dirname(__file__), '..', 'prompt', 'others', 'gen_think_for_mulops.md'))
+        # Load the tree-based agentic reasoning trajectory-rewrite prompt.
+        self.TREE_BASED_AGENTIC_REASONING_PROMPT = load_text_file(
+            os.path.join(
+                os.path.dirname(__file__),
+                '..',
+                'prompt',
+                'others',
+                'gen_think_for_tree_based_agentic_reasoning.md',
+            )
+        )
 
-    def generate_think_for_multiturn_ops(self, traj_dict: dict, save_name: str):
+    def generate_think_for_tree_based_agentic_reasoning(self, traj_dict: dict, save_name: str):
         save_path = os.path.join(self.cfg.get('filecachedir'), f"versions", self.cfg.get_version(), 'saved_think', f"{save_name}.json")
         if os.path.exists(save_path):
             return open_json(save_path)
@@ -43,7 +51,7 @@ class ThinkAgent(BaseAgent):
         return traj_dict
 
     def _generate(self, traj_dict: dict):
-        prompt = self.MULTI_OPS_PROMPT.replace('[json_data_for_traj]', json.dumps(traj_dict, indent=2))
+        prompt = self.TREE_BASED_AGENTIC_REASONING_PROMPT.replace('[json_data_for_traj]', json.dumps(traj_dict, indent=2))
         prompt = prompt.replace('[last_error]', ' and try to avoid the last error: ' + self.last_log if self.last_log else '')
         self.logger.log(prompt)
         out = self.llm.query(prompt)

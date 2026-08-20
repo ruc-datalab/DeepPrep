@@ -48,7 +48,7 @@ class DSAgent(BaseAgent):
         return True, last_compare_turn_number, new_gen_op_cnt
 
     def _multiturn_step(self, trial: Trial, cur_turn: int, his_op_and_output: str):
-        sys_prompt, user_prompt = PromptGenerator.multiturn_agent_generate(self.cfg, trial, last_error=self.last_log, cur_turn=cur_turn, his_op_and_output=his_op_and_output)
+        sys_prompt, user_prompt = PromptGenerator.tree_based_agentic_reasoning_generate(self.cfg, trial, last_error=self.last_log, cur_turn=cur_turn, his_op_and_output=his_op_and_output)
         prompt = sys_prompt + user_prompt
         self.logger.log(prompt)
         out = self.llm.query(prompt)
